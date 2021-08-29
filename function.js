@@ -1,7 +1,7 @@
 let allTeams = [];
 
 function loadTeams() {
-    fetch("data/teams.json")
+    fetch("http://localhost:3000/teams-json")
         .then(r => r.json())
         .then(teams => {
             console.warn('teams', teams)
@@ -13,7 +13,7 @@ function loadTeams() {
 function getTeamsAsHTML(teams) {
     return teams.map(team => {
         return `<tr>
-        <td>${team.group}</td>
+        <td>${team.promotion}</td>
         <td>${team.members}</td>
         <td>${team.name}</td>
         <td>${team.url}</td>
@@ -27,32 +27,42 @@ function displayTeams(teams) {
     document.querySelector('#list tbody').innerHTML = html;
 }
 
-function getTeamValue() {
-    const group = document.querySelector('[name=group]').value;
+function getTeamValues() {
+    const promotion = document.querySelector('[name=promotion]').value;
     const members = document.querySelector('[name=members]').value;
     const name = document.querySelector('[name=name]').value;
     const url = document.querySelector('[name=url]').value;
 
-    return team;
+    return {
+        promotion: promotion,
+        members: members,
+        name,
+        url
+    };
 }
 
 function saveTeam(team) {
-    fetch("data/add-team.json", {
+    fetch("http://localhost:3000/teams-json/create", {
         method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
         body: JSON.stringify(team)
     })
         .then(r => r.json())
         .then(status => {
             console.warn('status after add', status);
+            if (status.success) {
+                window.location.reload();
+            }
         })
 }
 
 function submitTeam() {
-    const team = getTeamValue();
+    const team = getTeamValues();
     console.warn('add this value in teams.json', JSON.stringify(team))
 
     saveTeam(team);
-    return false;
 }
 
 loadTeams();
