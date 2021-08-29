@@ -27,4 +27,32 @@ function displayTeams(teams) {
     document.querySelector('#list tbody').innerHTML = html;
 }
 
+function getTeamValue() {
+    const group = document.querySelector('[name=group]').value;
+    const members = document.querySelector('[name=members]').value;
+    const name = document.querySelector('[name=name]').value;
+    const url = document.querySelector('[name=url]').value;
+
+    return team;
+}
+
+function saveTeam(team) {
+    fetch("data/add-team.json", {
+        method: "POST",
+        body: JSON.stringify(team)
+    })
+        .then(r => r.json())
+        .then(status => {
+            console.warn('status after add', status);
+        })
+}
+
+function submitTeam() {
+    const team = getTeamValue();
+    console.warn('add this value in teams.json', JSON.stringify(team))
+
+    saveTeam(team);
+    return false;
+}
+
 loadTeams();

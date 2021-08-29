@@ -15,32 +15,40 @@
     </header>
     <input type="text" placeholder="Search.." name="search">
     <button id="searchbutton" type="search"></button>
-    <table id="list">
-        <thead>
-            <tr>
-                <th>Group</th>
-                <th>Members</th>
-                <th>Project Name</th>
-                <th>Project URL</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Nume Prenume</td>
-                <td>Nume Prenume</td>
-                <td>Nume Prenume</td>
-                <td>Nume Prenume</td>
-                <td>Nume Prenume</td>
-            </tr>
-            <tr>
+    <form onsubmit="return submitTeam()">
+        <table id="list">
+            <thead>
+                <tr>
+                    <th>Group</th>
+                    <th>Members</th>
+                    <th>Project Name</th>
+                    <th>Project URL</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Nume Prenume</td>
+                    <td>Nume Prenume</td>
+                    <td>Nume Prenume</td>
+                    <td>Nume Prenume</td>
+                    <td>Nume Prenume</td>
+                </tr>
+                <tr>
 
-            </tr>
-        </tbody>
-        <tfoot>
-
-        </tfoot>
-    </table>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td><input type="text" required name="group" placeholder="Group"></td>
+                    <td><input type="text" required name="members" placeholder="Members"></td>
+                    <td><input type="text" required name="name" placeholder="Name"></td>
+                    <td><input type="text" required name="url" placeholder="URL"></td>
+                    <td><button>Save</button></td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
     <script src="function.js"></script>
 </body>
 
