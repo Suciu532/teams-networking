@@ -1,3 +1,4 @@
+'
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,15 +8,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
     <header>
         <h1>Teams Netkowrking</h1>
     </header>
-    <input type="text" placeholder="Search.." name="search">
-    <button id="searchbutton" type="search"></button>
-    <form onsubmit="submitTeam(); return false;">
+    <input type="text" id="search" placeholder="Search.." name="search"><label for="search">🔎</label>
+    <form onsubmit="submitTeam(); return false;" onreset="editId=0;">
         <table id="list">
             <thead>
                 <tr>
@@ -44,7 +45,10 @@
                     <td><input type="text" required name="members" placeholder="Members"></td>
                     <td><input type="text" required name="name" placeholder="Name"></td>
                     <td><input type="text" required name="url" placeholder="URL"></td>
-                    <td><button>Save</button></td>
+                    <td>
+                        <button type="submit"><i class="fas fa-save"></i></button>
+                        <button type="reset"><i class="fas fa-undo"></i></button>
+                    </td>
                 </tr>
             </tfoot>
         </table>
