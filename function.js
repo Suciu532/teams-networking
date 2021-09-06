@@ -136,13 +136,10 @@ document.querySelector('#list tbody').addEventListener("click", e => {
 
 document.getElementById("search").addEventListener("input", e => {
     const text = e.target.value.toLowerCase();
-    console.warn('Cauta... ', text);
     const filtered = allTeams.filter(team => {
-        // console.info(team.members);
-        return team.members.toLowerCase().includes(text);
-    })
-    console.warn(filtered);
+        return team.members.toLowerCase().includes(text) || team.name.toLowerCase().includes(text) || team.promotion.toLowerCase().includes(text) || team.url.toLowerCase().includes(text);
+    });
     displayTeams(filtered);
-})
+});
 
 
