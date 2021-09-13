@@ -2,7 +2,7 @@ let allTeams = [];
 let editId;
 
 function loadTeams() {
-    fetch("http://localhost:3000/teams-json")
+    fetch("http://localhost:3000/teams")
         .then(r => r.json())
         .then(teams => {
             console.warn('teams', teams)
@@ -11,13 +11,19 @@ function loadTeams() {
         })
 }
 
-function getTeamsAsHTML(teams) {
+function highlight(text, search) {
+    return search ? text.replaceAll(new RegExp(search, "gi"), m => {
+        return `<span class="highlight">${m}</span>`;
+    }) : text;
+}
+
+function getTeamsAsHTML(teams, search) {
     return teams.map(team => {
         return `<tr>
-        <td>${team.promotion}</td>
-        <td>${team.members}</td>
-        <td>${team.name}</td>
-        <td>${team.url}</td>
+        <td>${highlight(team.promotion, search)}</td>
+        <td>${highlight(team.members, search)}</td>
+        <td>${highlight(team.name, search)}</td>
+        <td>${highlight(team.url, search)}</td>
         <td>
             <a href="#" class="delete-btn" data-id="${team.id}">&#10006;</a>
             <a href="#" class="edit-btn" data-id="${team.id}">&#9998;</a>
@@ -29,7 +35,8 @@ function getTeamsAsHTML(teams) {
 
 
 function displayTeams(teams) {
-    const html = getTeamsAsHTML(teams);
+    const search = document.getElementById("search").value;
+    const html = getTeamsAsHTML(teams, search);
     document.querySelector('#list tbody').innerHTML = html;
 }
 
@@ -56,7 +63,7 @@ function setTeamValues(team) {
 }
 
 function saveTeam(team) {
-    fetch("http://localhost:3000/teams-json/create", {
+    fetch("http://localhost:3000/teams/create", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -73,7 +80,7 @@ function saveTeam(team) {
 }
 
 function deleteTeam(id) {
-    fetch("http://localhost:3000/teams-json/delete", {
+    fetch("http://localhost:3000/teams/delete", {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json"
@@ -89,7 +96,7 @@ function deleteTeam(id) {
 }
 
 function updateTeam(team) {
-    fetch("http://localhost:3000/teams-json/update", {
+    fetch("http://localhost:3000/teams/update", {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
